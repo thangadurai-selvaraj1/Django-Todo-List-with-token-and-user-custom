@@ -1,6 +1,8 @@
-from django.urls import path, include
+from django.urls import path
 
-# urlpatterns = [
-#     path('login', include(auth_url)),
-#     path('task/', include(todo_url)),
-# ]
+from .views import TaskList, TaskDetailView
+
+urlpatterns = [
+    path('', TaskList.as_view()),
+    path('<int:id>', TaskDetailView.as_view()),
+]

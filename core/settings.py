@@ -26,6 +26,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'authentication.UserProfile'
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,12 +39,18 @@ INSTALLED_APPS = [
 
     # Other apps
     'api',
-    'authentication',
-    'todo_task',
+    'api.authentication',
+    'api.todo_task',
 
     # Other third party apps
     'rest_framework'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -120,3 +127,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+JWT_AUTH = {
+    # # how long the original token is valid for
+    # 'JWT_EXPIRATION_DELTA': datetime.timedelta(days=2),
+    #
+    # # allow refreshing of tokens
+    # 'JWT_ALLOW_REFRESH': True,
+    'JWT_VERIFY_EXPIRATION': False,
+    #
+    # # this is the maximum time AFTER the token was issued that
+    # # it can be refreshed.  exprired tokens can't be refreshed.
+    # 'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+}
